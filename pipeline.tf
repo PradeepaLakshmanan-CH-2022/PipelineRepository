@@ -9,7 +9,7 @@ resource "aws_codebuild_project" "tf-plan" {
 
   environment {
     compute_type                = "BUILD_GENERAL1_SMALL"
-    image                       =  "kavinya/dockerapi:latest"
+    image                       = "hashicorp/terraform:1.4.6"
     type                        = "LINUX_CONTAINER"
     image_pull_credentials_type = "SERVICE_ROLE"
     registry_credential{
@@ -34,7 +34,7 @@ resource "aws_codebuild_project" "tf-apply" {
 
   environment {
     compute_type                = "BUILD_GENERAL1_SMALL"
-    image                       = "kavinya/dockerapi:latest"
+    image                       = "hashicorp/terraform:1.4.6"
     type                        = "LINUX_CONTAINER"
     image_pull_credentials_type = "SERVICE_ROLE"
     registry_credential{
