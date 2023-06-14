@@ -1,0 +1,1 @@
+{"Modules":[{"Key":"","Source":"","Dir":"."},{"Key":"git_repo","Source":"git::https://github.com/PradeepaLakshmanan-CH-2022/PipelineRepository","Dir":".terraform/modules/git_repo"},{"Key":"string","Source":"registry.terraform.io/terraform-aws-modules/ssm-parameter/aws","Version":"1.0.1","Dir":".terraform/modules/string"}]}
