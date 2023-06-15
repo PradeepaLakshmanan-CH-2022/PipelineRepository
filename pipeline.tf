@@ -48,12 +48,12 @@ resource "aws_codebuild_project" "tf-apply" {
  }
 }
 resource "aws_codedeploy_app" "code_deploy" {
-  name          = "Consoledeploy"
+  name          = "Consoledeployment"
   compute_platform = "Server"
 }
 resource "aws_codedeploy_deployment_group" "code_deploy_Group" {
-  app_name               =  "Consoledeploy"
-  deployment_group_name  = "tf_cicddeploygroup"
+  app_name               =  "Consoledeployment"
+  deployment_group_name  = "tf_cicddeploygroups"
   service_role_arn      ="arn:aws:iam::606104556660:role/DeployRole"
   deployment_config_name = "CodeDeployDefault.AllAtOnce"
   
@@ -116,8 +116,8 @@ resource "aws_codepipeline" "cicd_pipeline" {
     input_artifacts = ["tf-code"]
 
     configuration = {
-      ApplicationName  = "Consoledeploy"
-      DeploymentGroupName = "tf_cicddeploygroup"
+      ApplicationName  = "Consoledeployment"
+      DeploymentGroupName = "tf_cicddeploygroups"
   
     }
   }

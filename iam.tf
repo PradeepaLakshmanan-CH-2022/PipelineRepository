@@ -95,6 +95,6 @@ resource "aws_iam_role_policy_attachment" "tf-cicd-codebuild-attachment2" {
 }
 resource "aws_iam_role_policy_attachment" "tf-codebuild-codedeploy-policy-attachment" {
   policy_arn = "arn:aws:iam::aws:policy/AWSCodeDeployFullAccess"
-  role       = aws_iam_role.tf-codedeploy-role.name
+  role       = aws_iam_role.tf-codebuild-role.name
 }
 
