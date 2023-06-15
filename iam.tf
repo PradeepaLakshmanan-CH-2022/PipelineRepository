@@ -45,6 +45,25 @@ resource "aws_iam_role_policy_attachment" "tf-cicd-pipeline-attachment" {
     policy_arn = aws_iam_policy.tf-cicd-pipeline-policy.arn
     role = aws_iam_role.tf-codepipeline-role.id
 }
+resource "aws_iam_role" "pipeline_role" {
+  name = "example-pipeline-role"
+
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "codepipeline.amazonaws.com"
+      },
+      "Effect": "Allow",
+      "Sid": ""
+    }
+  ]
+}
+EOF
+}
 
 
 resource "aws_iam_role" "tf-codebuild-role" {
