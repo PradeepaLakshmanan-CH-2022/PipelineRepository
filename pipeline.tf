@@ -119,7 +119,7 @@ resource "aws_codepipeline" "cicd_pipeline" {
      
         InstanceName  = "MyInstance"
         InstanceId    = "i-04e7c8fa32366874a"
-        RoleArn       = aws_iam_role.ec2_instance_role.arn
+       service_role_arn       = "arn:aws:iam::606104556660:role/Ec2Role"
       }
     }
   }
