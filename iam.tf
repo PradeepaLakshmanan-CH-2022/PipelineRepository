@@ -1,6 +1,6 @@
 resource "aws_iam_role" "tf-codepipeline-role" {
   name = "tf-codepipeline-role"
- 
+
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -44,25 +44,6 @@ resource "aws_iam_policy" "tf-cicd-pipeline-policy" {
 resource "aws_iam_role_policy_attachment" "tf-cicd-pipeline-attachment" {
     policy_arn = aws_iam_policy.tf-cicd-pipeline-policy.arn
     role = aws_iam_role.tf-codepipeline-role.id
-}
-resource "aws_iam_role" "pipeline_role" {
-  name = "example-pipeline-role"
-
-  assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "codepipeline.amazonaws.com"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
-  ]
-}
-EOF
 }
 
 
@@ -112,22 +93,8 @@ resource "aws_iam_role_policy_attachment" "tf-cicd-codebuild-attachment2" {
     policy_arn  = "arn:aws:iam::aws:policy/PowerUserAccess"
     role        = aws_iam_role.tf-codebuild-role.id
 }
-
-resource "aws_iam_role_policy" "codepipeline_policy" {
-  name   = "codepipeline-policy"
-  role   = aws_iam_role.pipeline_role.name
-
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "CodeDeployPermissions",
-      "Effect": "Allow",
-      "Action": "codedeploy:CreateDeployment",
-      "Resource": "arn:aws:codedeploy:us-east-1:606104556660:deploymentgroup:Consoledeploy/tf_cicddeploygroup"
-    }
-  ]
+resource "aws_iam_role_policy_attachment" "tf-codebuild-codedeploy-policy-attachment" {
+  policy_arn = "arn:aws:iam::aws:policy/AWSCodeDeployFullAccess"
+  role       = aws_iam_role.tf-codedeploy-role.name
 }
-EOF
-}
+

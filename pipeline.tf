@@ -104,25 +104,24 @@ resource "aws_codepipeline" "cicd_pipeline" {
         }
     }
 
-  stage {
-    name = "Deploy"
+ stage {
+  name = "DeployEC2"
 
-    action {
-      name            = "DeployAction"
-      category        = "Deploy"
-      owner           = "AWS"
-      provider        = "EC2"
-      version         = "1"
-      input_artifacts = ["BuildOutput"]
+  action {
+    name            = "DeployEC2Action"
+    category        = "Deploy"
+    owner           = "AWS"
+    provider        = "CodeDeploy"
+    version = "1"
+    input_artifacts = ["tf-code"]
 
-      configuration = {
-     
-        InstanceName  = "MyInstance"
-        InstanceId    = "i-04e7c8fa32366874a"
-       service_role_arn       = "arn:aws:iam::606104556660:role/Ec2Role"
-      }
+    configuration = {
+      ApplicationName  = "Consoledeploy"
+      DeploymentGroupName = "tf_cicddeploygroup"
+  
     }
   }
+}
 
 
 }
