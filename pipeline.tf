@@ -47,20 +47,6 @@ resource "aws_codebuild_project" "tf-apply" {
      buildspec = file("buildspec/apply-buildspec.yml")
  }
 }
-resource "aws_codedeploy_app" "tf_cicd_app" {
-  name = "tf-cicd-app"
-}
-
-resource "aws_codedeploy_deployment_group" "tf_cicd_deployment_group" {
-  app_name              = aws_codedeploy_app.tf_cicd_app.name
-  deployment_group_name = "tf-cicd-deployment-group"
-  
-  service_role_arn = aws_iam_role.tf_codedeploy_role.arn
-  deployment_config_name = "CodeDeployDefault.OneAtATime"
-
-  # Additional configuration for your deployment group
-  # ...
-}
 
 
 resource "aws_codepipeline" "cicd_pipeline" {
@@ -106,21 +92,19 @@ resource "aws_codepipeline" "cicd_pipeline" {
         }
     }
 
-   stage {
-    name = "Deploy"
-
-    action {
-      name       = "Deploy"
-      category   = "Deploy"
-      owner      = "AWS"
-      provider   = "CodeDeploy"
-      version    = "1"
-      input_artifacts = ["tf-code"]
-      configuration = {
-        ApplicationName  = "tf-cicd-app"
-        DeploymentGroupName = "tf-cicd-deployment-group"
-      }
-    }
+    stage {
+        name ="Deploy"
+        action{
+            name = "Deploy"
+            category = "Build"
+            provider = "CodeBuild"
+            version = "1"
+            owner = "AWS"
+            input_artifacts = ["tf-code"]
+            configuration = {
+                ProjectName = "tf-cicd-apply"
+            }
+        }
     }
 
 }
