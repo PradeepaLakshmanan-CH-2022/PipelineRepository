@@ -93,3 +93,12 @@ resource "aws_iam_role_policy_attachment" "tf-cicd-codebuild-attachment2" {
     policy_arn  = "arn:aws:iam::aws:policy/PowerUserAccess"
     role        = aws_iam_role.tf-codebuild-role.id
 }
+resource "aws_iam_role_policy_attachment" "codedeploy_permissions" {
+  role       = aws_iam_role.code_deploy_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AWSCodeDeployRoleForLambdaLimited"
+}
+
+resource "aws_iam_role_policy_attachment" "ec2_permissions" {
+  role       = aws_iam_role.code_deploy_role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerRegistryReadOnly"
+}
