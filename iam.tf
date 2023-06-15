@@ -94,3 +94,21 @@ resource "aws_iam_role_policy_attachment" "tf-cicd-codebuild-attachment2" {
     role        = aws_iam_role.tf-codebuild-role.id
 }
 
+resource "aws_iam_role_policy" "codepipeline_policy" {
+  name   = "codepipeline-policy"
+  role   = aws_iam_role.pipeline_role.name
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "CodeDeployPermissions",
+      "Effect": "Allow",
+      "Action": "codedeploy:CreateDeployment",
+      "Resource": "arn:aws:codedeploy:us-east-1:606104556660:deploymentgroup:Consoledeploy/tf_cicddeploygroup"
+    }
+  ]
+}
+EOF
+}

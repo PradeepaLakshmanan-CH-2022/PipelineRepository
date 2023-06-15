@@ -113,12 +113,12 @@ resource "aws_codepipeline" "cicd_pipeline" {
     owner           = "AWS"
     provider        = "CodeDeploy"
     version = "1"
-    input_artifacts = ["BuildArtifact"]
+     input_artifacts = ["tf-code"]
 
     configuration = {
       ApplicationName  = "Consoledeploy"
       DeploymentGroupName = "tf_cicddeploygroup"
-    region="us-east-1"
+  
     }
   }
 }
