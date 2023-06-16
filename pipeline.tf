@@ -56,9 +56,19 @@ resource "aws_codedeploy_deployment_group" "DeployGroup" {
   deployment_group_name  = "ConsoleApplicationDeployGroup"
   service_role_arn      ="arn:aws:iam::606104556660:role/DeployRole"
   deployment_config_name = "CodeDeployDefault.AllAtOnce"
-  
-  # Add other necessary configurations such as triggers and deployment settings
+    auto_rollback_configuration {
+    enabled = true
+    events  = ["DEPLOYMENT_FAILURE"]
+  }
 
+  ec2_tag_set {
+    ec2_tag_filter {
+      # Replace with the EC2 instance tag key
+      type  = "KEY_AND_VALUE"
+      value = "ConsoleEc2Instance"  # Replace with the EC2 instance tag value
+    }
+  # Add other necessary configurations such as triggers and deployment settings
+  }
 
 }
 
