@@ -65,7 +65,7 @@ resource "aws_codedeploy_deployment_group" "DeployGroup" {
     ec2_tag_filter {
       key   = "production"# Replace with the EC2 instance tag key
       type  = "KEY_AND_VALUE"
-      value = "ConsoleEc2Instance"  # Replace with the EC2 instance tag value
+      value = "ConsoleEc2"  # Replace with the EC2 instance tag value
     }
   # Add other necessary configurations such as triggers and deployment settings
   }
