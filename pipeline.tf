@@ -54,7 +54,7 @@ resource "aws_codedeploy_app" "code_deploy" {
 resource "aws_codedeploy_deployment_group" "DeployGroup" {
   app_name               = "ConsoleApplicationDeploy"
   deployment_group_name  = "ConsoleApplicationDeployGroup"
-  service_role_arn      ="arn:aws:iam::606104556660:role/DeployRole"
+  service_role_arn      ="arn:aws:iam::606104556660:role/DeployRole"  
   deployment_config_name = "CodeDeployDefault.AllAtOnce"
     auto_rollback_configuration {
     enabled = true
@@ -63,7 +63,7 @@ resource "aws_codedeploy_deployment_group" "DeployGroup" {
 
   ec2_tag_set {
     ec2_tag_filter {
-      # Replace with the EC2 instance tag key
+      key   = "production"# Replace with the EC2 instance tag key
       type  = "KEY_AND_VALUE"
       value = "ConsoleEc2Instance"  # Replace with the EC2 instance tag value
     }
