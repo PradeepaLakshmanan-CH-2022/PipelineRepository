@@ -161,6 +161,54 @@ resource "aws_iam_role_policy_attachment" "code_deploy_policy_attachment" {
 }
 
 
+resource "aws_iam_role" "codedeploy_role" {
+  name = "CodeDeployEC2Role"
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "ec2.amazonaws.com"
+      },
+      "Effect": "Allow"
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_policy" "codedeploy_policy" {
+  name        = "CodeDeployEC2Policy"
+  description = "IAM policy for EC2 instances to work with CodeDeploy"
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "CodeDeployPermissions",
+      "Effect": "Allow",
+      "Action": [
+        "codedeploy:*",
+        "s3:Get*",
+        "s3:List*",
+        "ec2:CreateTags"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_role_policy_attachment" "codedeploy_attachment" {
+  role       = aws_iam_role.codedeploy_role.name
+  policy_arn = aws_iam_policy.codedeploy_policy.arn
+}
+
+
 
 
 
