@@ -61,15 +61,17 @@ resource "aws_codedeploy_deployment_group" "DeployGroup" {
     events  = ["DEPLOYMENT_FAILURE"]
   }
 
-  ec2_tag_set {
-    ec2_tag_filter {
-      key   = "production"# Replace with the EC2 instance tag key
-      type  = "KEY_AND_VALUE"
-      value = "ConsoleEc2"  # Replace with the EC2 instance tag value
-    }
+   ec2_tag_set {
+    ec2_tag_set_list {
+      ec2_tag_filter {
+        key    = "aws:ec2instance/id"
+        value  = "i-0ddb3fdba72ae2deb"  # Replace with your existing EC2 instance ID
+        type   = "KEY_AND_VALUE"
+      }
   # Add other necessary configurations such as triggers and deployment settings
   }
 
+}
 }
 
 
