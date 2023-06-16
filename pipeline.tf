@@ -48,16 +48,18 @@ resource "aws_codebuild_project" "tf-apply" {
  }
 }
 resource "aws_codedeploy_app" "code_deploy" {
-  name          = "Consoledeployment"
+  name          = "ConsoleApplicationDeploy"
   compute_platform = "Server"
 }
-resource "aws_codedeploy_deployment_group" "code_deploy_Group" {
-  app_name               =  "Consoledeployment"
-  deployment_group_name  = "tf_cicddeploygroups"
+resource "aws_codedeploy_deployment_group" "DeployGroup" {
+  app_name               = "ConsoleApplicationDeploy"
+  deployment_group_name  = "ConsoleApplicationDeployGroup"
   service_role_arn      ="arn:aws:iam::606104556660:role/DeployRole"
   deployment_config_name = "CodeDeployDefault.AllAtOnce"
   
   # Add other necessary configurations such as triggers and deployment settings
+
+
 }
 
 
@@ -105,10 +107,10 @@ resource "aws_codepipeline" "cicd_pipeline" {
     }
 
  stage {
-  name = "DeployEC2"
+  name = "Deploy"
 
   action {
-    name            = "DeployEC2Action"
+    name            = "DeployEC2"
     category        = "Deploy"
     owner           = "AWS"
     provider        = "CodeDeploy"
@@ -116,8 +118,8 @@ resource "aws_codepipeline" "cicd_pipeline" {
     input_artifacts = ["tf-code"]
 
     configuration = {
-      ApplicationName  = "Consoledeployment"
-      DeploymentGroupName = "tf_cicddeploygroups"
+      ApplicationName  = "ConsoleApplicationDeploy"
+      DeploymentGroupName = "ConsoleApplicationDeployGroup"
   
     }
   }
