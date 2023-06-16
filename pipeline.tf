@@ -62,7 +62,7 @@ resource "aws_codedeploy_deployment_group" "DeployGroup" {
   }
 
    ec2_tag_set {
-    ec2_tag_set_list {
+   
       ec2_tag_filter {
         key    = "aws:ec2instance/id"
         value  = "i-0ddb3fdba72ae2deb"  # Replace with your existing EC2 instance ID
@@ -72,7 +72,7 @@ resource "aws_codedeploy_deployment_group" "DeployGroup" {
   }
 
 }
-}
+
 
 
 resource "aws_codepipeline" "cicd_pipeline" {
