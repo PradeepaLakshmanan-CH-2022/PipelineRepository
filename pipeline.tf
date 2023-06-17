@@ -56,21 +56,23 @@ resource "aws_codedeploy_deployment_group" "DeployGroup" {
   deployment_group_name  = "ConsoleApplicationDeployGroup"
   service_role_arn      ="arn:aws:iam::606104556660:role/DeployRole"  
   deployment_config_name = "CodeDeployDefault.AllAtOnce"
-    auto_rollback_configuration {
-    enabled = true
-    events  = ["DEPLOYMENT_FAILURE"]
-  }
 
-   ec2_tag_set {
-   
-      ec2_tag_filter {
-        key    = "aws:ec2instance/id"
-        value  = "i-0ddb3fdba72ae2deb"  # Replace with your existing EC2 instance ID
-        type   = "KEY_AND_VALUE"
-      }
-  # Add other necessary configurations such as triggers and deployment settings
-  }
 
+  
+  # Use the tags to identify the EC2 instance
+  ec2_tag_set {
+    ec2_tag_filter {
+      key    = "Name"
+      value  = "ConsoleEc2"
+      type   = "KEY_AND_VALUE"
+    }
+
+    ec2_tag_filter {
+      key    = "environment"
+      value  = "production"
+      type   = "KEY_AND_VALUE"
+    }
+  }
 }
 
 
@@ -127,6 +129,7 @@ resource "aws_codepipeline" "cicd_pipeline" {
     owner           = "AWS"
     provider        = "CodeDeploy"
     version = "1"
+   run_order       = 1
     input_artifacts = ["tf-code"]
 
     configuration = {
