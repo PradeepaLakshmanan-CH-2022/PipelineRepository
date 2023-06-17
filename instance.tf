@@ -1,6 +1,6 @@
 
 resource "aws_instance" "pipelineinstance" {
-  ami           = "ami-022e1a32d3f742bd8"
+  ami           = "ami-04132f301c3e4f138"
   instance_type = "t2.micro"
 
  user_data = <<-EOF
