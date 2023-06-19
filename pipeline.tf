@@ -72,6 +72,8 @@ resource "aws_codedeploy_deployment_group" "DeployGroup" {
       value  = "production"
       type   = "KEY_AND_VALUE"
     }
+   
+
   }
 }
 
