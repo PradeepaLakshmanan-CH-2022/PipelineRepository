@@ -2,7 +2,7 @@ version: 0.0
 os: windows
 files:
   - source: /
-    destination: C:\MyPipelineApplication
+    destination: C:\PipelineApplication
 
 hooks:
   BeforeInstall:
