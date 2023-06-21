@@ -1,0 +1,15 @@
+version: 0.0
+os: windows
+files:
+  - source: /
+    destination: C:\MyPipelineApplication
+
+hooks:
+  BeforeInstall:
+    - location: Scripts\before_install.ps1
+  AfterInstall:
+    - location: Scripts\after_install.ps1
+  ApplicationStart:
+    - location: Scripts\application_start.ps1
+  ValidateService:
+    - location: Scripts\validate_service.ps1
